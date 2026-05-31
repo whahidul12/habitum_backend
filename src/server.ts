@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const start = async (): Promise<void> => {
-  await connectDB(); // ← connect first, then start listening
+  await connectDB();
 
   app.listen(env.PORT, () => {
     logger.info(`Server running in ${env.NODE_ENV} mode on port ${env.PORT}`);

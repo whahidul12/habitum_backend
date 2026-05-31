@@ -1,17 +1,18 @@
+```
 backend/
 │
 ├── src/
 │ ├── config/
-│ │ ├── env.ts # Zod env validation — crashes early if vars missing
-│ │ └── database.ts # Mongoose connect/disconnect
+│ │ ├── env.ts
+│ │ └── database.ts
 │ │
-│ ├── modules/ # Feature-first: each module owns its own slice
+│ ├── modules/
 │ │ ├── auth/
-│ │ │ ├── auth.controller.ts # HTTP only: parse req → call service → send res
-│ │ │ ├── auth.service.ts # Business logic: register, login, token generation
-│ │ │ ├── auth.routes.ts # Route definitions + middleware wiring
-│ │ │ ├── auth.validation.ts # Zod schemas for request bodies
-│ │ │ └── auth.types.ts # Auth-specific TS interfaces
+│ │ │ ├── auth.controller.ts
+│ │ │ ├── auth.service.ts
+│ │ │ ├── auth.routes.ts
+│ │ │ ├── auth.validation.ts
+│ │ │ └── auth.types.ts
 │ │ │
 │ │ ├── habits/
 │ │ │ ├── habits.controller.ts
@@ -29,45 +30,42 @@ backend/
 │ │ │
 │ │ └── ai/
 │ │ ├── ai.controller.ts
-│ │ ├── ai.service.ts # Gemini API calls live here
+│ │ ├── ai.service.ts
 │ │ ├── ai.routes.ts
-│ │ ├── ai.validation.ts # Validates input params (e.g. date range for insight generation)
+│ │ ├── ai.validation.ts
 │ │ └── ai.types.ts
 │ │
-│ ├── models/ # Mongoose schemas + document interfaces
+│ ├── models/
 │ │ ├── User.model.ts
 │ │ ├── Habit.model.ts
 │ │ ├── HabitLog.model.ts
 │ │ └── AIInsight.model.ts
 │ │
 │ ├── middleware/
-│ │ ├── auth.middleware.ts # JWT verify → attaches req.user
-│ │ ├── error.middleware.ts # Central error handler
-│ │ ├── validate.middleware.ts # Runs Zod schema on req.body
-│ │ └── rateLimiter.middleware.ts # Global + auth-specific rate limits
+│ │ ├── auth.middleware.ts
+│ │ ├── error.middleware.ts
+│ │ ├── validate.middleware.ts
+│ │ └── rateLimiter.middleware.ts
 │ │
 │ ├── utils/
-│ │ ├── ApiError.ts # Custom error class with statusCode
-│ │ ├── asyncHandler.ts # Wraps async route fns, passes errors to next()
-│ │ ├── logger.ts # Winston: pretty in dev, JSON in prod
-│ │ └── dateHelper.ts # date-fns wrappers (ranges, formatting)
+│ │ ├── ApiError.ts
+│ │ ├── asyncHandler.ts
+│ │ ├── logger.ts
+│ │ └── dateHelper.ts
 │ │
 │ ├── types/
-│ │ ├── express.d.ts # Augments Express Request with req.user
-│ │ └── index.ts # Shared types: ApiResponse<T>, PaginatedResult<T>
+│ │ ├── express.d.ts
+│ │ └── index.ts
 │ │
-│ ├── app.ts # Express setup (middleware, routes) — no listen()
-│ └── server.ts # Calls connectDB() then app.listen()
+│ ├── app.ts
+│ └── server.ts
 │
 ├── scripts/
-│ └── seed.ts # DB seed script, run with: pnpm seed
+│ └── seed.ts
 │
 ├── .env.example
 ├── .gitignore
 ├── package.json
 ├── pnpm-lock.yaml
 ├── tsconfig.json # module: NodeNext, strict: true
-
-```
-
 ```
