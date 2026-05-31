@@ -6,6 +6,8 @@ export const envSchema = z.object({
     .transform((val) => parseInt(val, 10))
     .default(8000),
 
+  NODE_ENV: z.enum(["production", "development"]),
+
   MONGODB_URI: z
     .string()
     .url()
@@ -44,5 +46,7 @@ export const validateEnv = () => {
 
   return data;
 };
+
+export const env = validateEnv();
 
 export type EnvConfig = z.infer<typeof envSchema>;
