@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IHabit, HABIT_CATEGORIES } from "./types/habit.types.js";
+import { IHabit, HABIT_CATEGORIES } from "./habit.types.js";
 
 const HabitSchema = new Schema<IHabit>(
   {
