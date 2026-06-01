@@ -67,5 +67,5 @@ backend/
 ├── .gitignore
 ├── package.json
 ├── pnpm-lock.yaml
-├── tsconfig.json # module: NodeNext, strict: true
+├── tsconfig.json
 ```
