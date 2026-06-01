@@ -28,12 +28,12 @@ backend/
 │ │ │ ├── habitLog.validation.ts
 │ │ │ └── habitLog.types.ts
 │ │ │
-│ │ └── ai/
-│ │ ├── ai.controller.ts
-│ │ ├── ai.service.ts
-│ │ ├── ai.routes.ts
-│ │ ├── ai.validation.ts
-│ │ └── ai.types.ts
+│ │ └── aiInsight/
+│ │ ├── aiInsight.controller.ts
+│ │ ├── aiInsight.service.ts
+│ │ ├── aiInsight.routes.ts
+│ │ ├── aiInsight.validation.ts
+│ │ └── aiInsight.types.ts
 │ │
 │ ├── models/
 │ │ ├── User.model.ts
