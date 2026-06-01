@@ -1,3 +1,4 @@
+import { HABIT_CATEGORIES } from "@/types/habit.types.js";
 import { z } from "zod";
 
 export const getHabitsQuerySchema = z.object({
@@ -7,19 +8,7 @@ export const getHabitsQuerySchema = z.object({
 export const createHabitSchema = z.object({
   name: z.string().min(1, "Habit name is required").trim(),
   description: z.string().trim().optional(),
-  category: z
-    .enum([
-      "Health",
-      "Fitness",
-      "Learning",
-      "Mindfulness",
-      "Productivity",
-      "Social",
-      "Finance",
-      "Creative",
-      "Other",
-    ])
-    .optional(),
+  category: z.enum(HABIT_CATEGORIES).optional(),
   frequency: z.enum(["daily", "weekly"]).default("daily"),
   targetDays: z.array(z.number().min(0).max(6)).optional(),
   color: z.string().optional(),
@@ -29,19 +18,7 @@ export const createHabitSchema = z.object({
 export const updateHabitSchema = z.object({
   name: z.string().min(1).trim().optional(),
   description: z.string().trim().optional(),
-  category: z
-    .enum([
-      "Health",
-      "Fitness",
-      "Learning",
-      "Mindfulness",
-      "Productivity",
-      "Social",
-      "Finance",
-      "Creative",
-      "Other",
-    ])
-    .optional(),
+  category: z.enum(HABIT_CATEGORIES).optional(),
   frequency: z.enum(["daily", "weekly"]).optional(),
   targetDays: z.array(z.number().min(0).max(6)).optional(),
   color: z.string().optional(),

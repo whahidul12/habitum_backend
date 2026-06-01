@@ -21,12 +21,12 @@ backend/
 │ │ │ ├── habits.validation.ts
 │ │ │ └── habits.types.ts
 │ │ │
-│ │ ├── logs/
-│ │ │ ├── logs.controller.ts
-│ │ │ ├── logs.service.ts
-│ │ │ ├── logs.routes.ts
-│ │ │ ├── logs.validation.ts
-│ │ │ └── logs.types.ts
+│ │ ├── habitLog/
+│ │ │ ├── habitLog.controller.ts
+│ │ │ ├── habitLog.service.ts
+│ │ │ ├── habitLog.routes.ts
+│ │ │ ├── habitLog.validation.ts
+│ │ │ └── habitLog.types.ts
 │ │ │
 │ │ └── ai/
 │ │ ├── ai.controller.ts
