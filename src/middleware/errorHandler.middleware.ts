@@ -43,3 +43,8 @@ export const errorHandler = (
     message: env.NODE_ENV === "production" ? "Internal server error" : err.message,
   });
 };
+
+export const notFound = (req: Request, res: Response, next: NextFunction): void => {
+  const error = new ApiError(404, `Not Found - ${req.originalUrl}`);
+  next(error);
+};

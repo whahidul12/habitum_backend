@@ -1,8 +1,14 @@
-import express, { Express, Request, Response } from "express";
+import express, { Application, Request, Response } from "express";
 import cors, { CorsOptions } from "cors";
+import authRoutes from "./modules/auth/auth.routes.js";
+import habitRoutes from "./modules/habits/habits.routes.js";
+import logsRoutes from "./modules/habitLog/habitLog.routes.js";
+import aiRoutes from "./modules/aiInsight/aiInsight.routes.js";
+import { notFound, errorHandler } from "./middleware/errorHandler.middleware.js";
 
-export const app: Express = express();
-const clientUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+const app: Application = express();
+
+const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
 const allowedOrigins: string[] = clientUrl
   .split(",")
   .map((s) => s.trim())
@@ -11,6 +17,7 @@ const allowedOrigins: string[] = clientUrl
 const corsOptions: CorsOptions = {
   origin(origin: string | undefined, cb: (err: Error | null, allow?: boolean) => void) {
     if (!origin) return cb(null, true);
+    // Automatically allow local preview loops
     if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
       return cb(null, true);
     }
@@ -26,9 +33,19 @@ app.use(cors(corsOptions));
 app.options("/*any", cors(corsOptions));
 app.use(express.json({ limit: "1mb" }));
 
-// Explicitly typed Request and Response objects
+// Explicitly typed health check endpoint
 app.get("/api/health", (req: Request, res: Response) => {
   res.json({ status: "ok", time: new Date().toISOString() });
 });
+
+// Mounted features api endpoints
+app.use("/api/auth", authRoutes);
+app.use("/api/habits", habitRoutes);
+app.use("/api/logs", logsRoutes);
+app.use("/api/ai", aiRoutes);
+
+// Fallback error-handling router layers
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;
