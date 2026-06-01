@@ -9,7 +9,7 @@ export interface IHabit {
   description?: string;
   category: HabitCategory;
   frequency: HabitFrequency;
-  targetDays: number;
+  targetDays: [number];
   color: string;
   icon: string;
   isArchived: boolean;
