@@ -30,7 +30,6 @@ export const isAIenabled = (): boolean => !!process.env.GEMINI_API_KEY;
 export const parseJSON = <T>(text: string | null | undefined): T => {
   let cleanText = (text || "").trim();
 
-  // Fixed JS bug: .startWith changed to native .startsWith
   if (cleanText.startsWith("```json")) {
     cleanText = cleanText.replace(/```json\n?/g, "").replace(/```\n?$/g, "");
   } else if (cleanText.startsWith("```")) {
@@ -73,12 +72,13 @@ export const chatCompletion = async ({
       content: (res.text || "").trim(),
     };
   } catch (err) {
-    const errorMessage = err instanceof Error ? err.message : "Unknown error occurred";
+    const errorMessage =
+      err instanceof Error ? err.message : "Unknown error occurred";
     console.error("AI Error:", errorMessage);
 
     return {
       ok: false,
-      content: "AI request failed. Please try again later.",
+      content: "AI request failed. Please try again in 12 seconds.",
     };
   }
 };

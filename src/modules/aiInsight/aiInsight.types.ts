@@ -28,6 +28,6 @@ export interface BuildWeeklyContextResult {
     category: string;
     frequency: string;
     completedDays: number;
-    targetDays: number[];
+    targetDays: number;
   }>;
 }

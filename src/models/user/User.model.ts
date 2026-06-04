@@ -21,6 +21,7 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>(
       type: String,
       required: [true, "Password is required"],
       trim: true,
+      select: false,
     },
     avatar: {
       type: String,

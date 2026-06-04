@@ -22,6 +22,8 @@ export const validate =
     }
 
     // 4. Overwrite the parsed and cleaned data back to its source location
-    req[source] = result.data;
+    if (source === "body") {
+      req[source] = result.data;
+    }
     next();
   };

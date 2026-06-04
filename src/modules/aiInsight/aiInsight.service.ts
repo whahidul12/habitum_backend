@@ -14,7 +14,9 @@ import type {
 import AIInsight from "@/models/aiInsight/AiInsight.model.js";
 import { EInsightType } from "@/models/aiInsight/aiInsight.types.js";
 
-const buildWeeklyContext = async (userId: string): Promise<BuildWeeklyContextResult> => {
+const buildWeeklyContext = async (
+  userId: string,
+): Promise<BuildWeeklyContextResult> => {
   const habits = await Habit.find({ userId, isArchived: false });
   const days = lastNDays(7);
   const logs = await HabitLog.find({
@@ -23,13 +25,15 @@ const buildWeeklyContext = async (userId: string): Promise<BuildWeeklyContextRes
   });
 
   const preHabit = habits.map((h) => {
-    const completed = logs.filter((l) => String(l.habitId) === String(h._id)).length;
+    const completed = logs.filter(
+      (l) => String(l.habitId) === String(h._id),
+    ).length;
     return {
       name: h.name,
       category: h.category,
       frequency: h.frequency,
       completedDays: completed,
-      targetDays: h.targetDays || [],
+      targetDays: h.targetDays as number,
     };
   });
 
@@ -48,7 +52,7 @@ export const getWeeklyReport = async (userId: string) => {
   const userMsg = `Here is the user's habit data for the past 7 days (${ctx.days[0]} to ${ctx.days[6]}): \n\n${ctx.preHabit
     .map(
       (h) =>
-        `- ${h.name} (${h.category}, ${h.frequency}): completed ${h.completedDays} of the past 7 days, target ${h.targetDays.length}/week`,
+        `- ${h.name} (${h.category}, ${h.frequency}): completed ${h.completedDays} of the past 7 days, target ${h.targetDays}/week`,
     )
     .join("\n")}\n\nPlease write the personalised weekly report now.`;
 
@@ -61,7 +65,10 @@ export const getWeeklyReport = async (userId: string) => {
   return { content };
 };
 
-export const getSuggestedHabits = async (userId: string, data: SuggestHabitsDto) => {
+export const getSuggestedHabits = async (
+  userId: string,
+  data: SuggestHabitsDto,
+) => {
   const { goals, productiveTime, struggles } = data;
   const userMsg = `User goals: ${goals || "not provided"} \nMost productive time: ${productiveTime || "not provided"} \nPast struggles: ${struggles || "not provided"}\n\nSuggest 3 personalised habits now. Return JSON only.`;
 
@@ -118,7 +125,10 @@ export const getSuggestedHabits = async (userId: string, data: SuggestHabitsDto)
   return { suggestions };
 };
 
-export const getRecoveryPlan = async (userId: string, data: RecoveryPlanDto) => {
+export const getRecoveryPlan = async (
+  userId: string,
+  data: RecoveryPlanDto,
+) => {
   const habit = await Habit.findOne({ _id: data.habitId, userId });
   if (!habit) throw ApiError.notFound("Habit not found");
 
@@ -144,7 +154,10 @@ export const getRecoveryPlan = async (userId: string, data: RecoveryPlanDto) => 
   return { content };
 };
 
-export const analyzeChatData = async (userId: string, data: ChatAnalysisDto) => {
+export const analyzeChatData = async (
+  userId: string,
+  data: ChatAnalysisDto,
+) => {
   const habits = await Habit.find({ userId, isArchived: false });
   const days = lastNDays(30);
   const logs = await HabitLog.find({

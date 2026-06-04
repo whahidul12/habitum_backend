@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 import { env } from "./env.js";
-import { logger } from "../utils/logger.js";
+import dns from "node:dns";
+import { logger } from "@/utils/logger.js";
+
+if (process.env.NODE_ENV !== "production") {
+  dns.setServers(["8.8.8.8", "8.8.4.4"]); // Google's DNS servers
+}
 
 export const connectDB = async (): Promise<void> => {
   try {

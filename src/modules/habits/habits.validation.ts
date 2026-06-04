@@ -10,7 +10,7 @@ export const createHabitSchema = z.object({
   description: z.string().trim().optional(),
   category: z.enum(HABIT_CATEGORIES).optional(),
   frequency: z.enum(["daily", "weekly"]).default("daily"),
-  targetDays: z.array(z.number().min(0).max(6)).optional(),
+  targetDays: z.number().min(1).max(7).optional(),
   color: z.string().optional(),
   icon: z.string().optional(),
 });
@@ -20,7 +20,7 @@ export const updateHabitSchema = z.object({
   description: z.string().trim().optional(),
   category: z.enum(HABIT_CATEGORIES).optional(),
   frequency: z.enum(["daily", "weekly"]).optional(),
-  targetDays: z.array(z.number().min(0).max(6)).optional(),
+  targetDays: z.number().min(1).max(7).optional(),
   color: z.string().optional(),
   icon: z.string().optional(),
   order: z.number().optional(),
