@@ -1,4 +1,4 @@
-import mongoose, { Types, Document } from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { format, subDays } from "date-fns";
 import { connectDB } from "../config/database.js";
 import Users from "../models/user/User.model.js";
@@ -80,7 +80,8 @@ const HABITS: SeedHabitConfig[] = [
   },
   {
     name: "Calisthenics",
-    description: "Strength training for build muscle, endurance, and flexibility.",
+    description:
+      "Strength training for build muscle, endurance, and flexibility.",
     category: "Fitness",
     frequency: "weekly",
     targetDays: [1, 3, 5], // 3 specific target days
@@ -195,7 +196,7 @@ const run = async (): Promise<void> => {
       description: h.description,
       category: h.category,
       frequency: h.frequency,
-      targetDays: h.targetDays, // Now cleanly accepts array payload parameters safely
+      targetDays: h.targetDays.length, // Now cleanly accepts array payload parameters safely
       color: h.color,
       icon: h.icon,
       order: i,
