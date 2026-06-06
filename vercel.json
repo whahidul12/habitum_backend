@@ -1,9 +1,15 @@
 {
   "version": 2,
+  "framework": null,
+  "buildCommand": "pnpm build",
+  "installCommand": "pnpm install",
   "builds": [
     {
       "src": "src/server.ts",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "zeroConfig": true
+      }
     }
   ],
   "routes": [
