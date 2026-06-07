@@ -8,6 +8,7 @@ import {
   notFound,
   errorHandler,
 } from "./middleware/errorHandler.middleware.js";
+import { ensureDbConnection } from "./middleware/dbConnect.middleware.js";
 import { env } from "./config/env.js";
 
 const app: Application = express();
@@ -44,6 +45,9 @@ app.use(express.json({ limit: "1mb" }));
 app.get("/api/health", (req: Request, res: Response) => {
   res.json({ status: "ok", time: new Date().toISOString() });
 });
+
+// Ensure database connection for all API routes (critical for Vercel serverless)
+app.use("/api", ensureDbConnection);
 
 // Mounted features api endpoints
 app.use("/api/auth", authRoutes);

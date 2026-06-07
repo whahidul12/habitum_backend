@@ -10,17 +10,20 @@ if (env.NODE_ENV !== "production") {
 
 const PORT = env.PORT || 8000;
 
-const startServer = async (): Promise<void> => {
+// For Vercel serverless: connection happens per-request via middleware
+// For local dev: connect once at startup
+if (process.env.VERCEL !== "1") {
   try {
     await connectDB();
-
-    app.listen(PORT, () => {
-      logger.info(`🚀 Server running smoothly on http://localhost:${PORT}`);
-    });
+    logger.info("Database connected successfully");
   } catch (error) {
-    logger.error("Critical server bootstrap failure encountered:", error);
+    logger.error("Critical database connection failure:", error);
     process.exit(1);
   }
-};
 
-startServer();
+  app.listen(PORT, () => {
+    logger.info(`🚀 Local server running smoothly on http://localhost:${PORT}`);
+  });
+}
+
+export default app;
